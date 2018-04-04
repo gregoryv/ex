@@ -1,5 +1,5 @@
-// Package exio mocks varios write interfaces for eazy test examples.
-package exio
+// Package ex implements interfaces which writes output to stdout
+package ex
 
 import (
 	"net/http"
@@ -16,8 +16,10 @@ func NewBodyWriter() *BodyWriter {
 	}
 }
 
+// WriteHeader does nothing
 func (w *BodyWriter) WriteHeader(v int)  {}
 
+// Write the given byte slice to stdout
 func (w *BodyWriter) Write(b []byte) (int, error)  {
 	fmt.Printf("%s", string(b))
 	return len(b), nil
