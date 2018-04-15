@@ -32,3 +32,17 @@ func (w *StatusWriter) WriteHeader(v int) {
 }
 func (w *StatusWriter) Header() http.Header         { return w.header }
 func (w *StatusWriter) Write(b []byte) (int, error) { return len(b), nil }
+
+func BodyOf(r *http.Request, err error) (*BodyWriter, *http.Request) {
+	if err != nil {
+		panic(err)
+	}
+	return NewBodyWriter(), r
+}
+
+func StatusOf(r *http.Request, err error) (*StatusWriter, *http.Request) {
+	if err != nil {
+		panic(err)
+	}
+	return NewStatusWriter(), r
+}

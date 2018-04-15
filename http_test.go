@@ -1,6 +1,8 @@
 package ex
 
 import (
+	"fmt"
+	"net/http"
 	"testing"
 )
 
@@ -38,4 +40,22 @@ func TestStatusWriter_Header(t *testing.T) {
 	if statusWriter.Header() == nil {
 		t.Fail()
 	}
+}
+
+func ExampleBodyOf() {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello, %s!", "world")
+	}
+	handler(BodyOf(http.NewRequest("GET", "/", nil)))
+	//output:
+	//Hello, world!
+}
+
+func ExampleStatusOf() {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}
+	handler(StatusOf(http.NewRequest("GET", "/", nil)))
+	//output:
+	//200
 }
