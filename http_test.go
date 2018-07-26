@@ -30,7 +30,8 @@ func ExampleStatusWriter_WriteHeader() {
 	// 200
 }
 func ExampleStatusWriter_Write() {
-	statusWriter.Write([]byte("Hello, world!"))
+	w := NewStatusWriter()
+	w.Write([]byte("Hello, world!"))
 	// output:
 	// 200
 }
