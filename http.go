@@ -21,7 +21,8 @@ func (w *BodyWriter) Write(b []byte) (int, error) {
 }
 
 type StatusWriter struct {
-	header http.Header
+	header  http.Header
+	written bool
 }
 
 func NewStatusWriter() *StatusWriter { return &StatusWriter{header: http.Header{}} }
@@ -30,5 +31,11 @@ func NewStatusWriter() *StatusWriter { return &StatusWriter{header: http.Header{
 func (w *StatusWriter) WriteHeader(v int) {
 	fmt.Printf("%v", v)
 }
-func (w *StatusWriter) Header() http.Header         { return w.header }
-func (w *StatusWriter) Write(b []byte) (int, error) { return len(b), nil }
+func (w *StatusWriter) Header() http.Header { return w.header }
+func (w *StatusWriter) Write(b []byte) (int, error) {
+	if !w.written {
+		w.WriteHeader(http.StatusOK)
+		w.written = true
+	}
+	return len(b), nil
+}

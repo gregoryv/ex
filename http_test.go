@@ -32,6 +32,7 @@ func ExampleStatusWriter_WriteHeader() {
 func ExampleStatusWriter_Write() {
 	statusWriter.Write([]byte("Hello, world!"))
 	// output:
+	// 200
 }
 
 func TestStatusWriter_Header(t *testing.T) {
