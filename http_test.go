@@ -6,6 +6,20 @@ import (
 
 var bodyWriter = NewBodyWriter()
 var statusWriter = NewStatusWriter()
+var jsonWriter = NewJsonWriter()
+
+func ExampleJsonWriter_Write() {
+	jsonWriter.Write([]byte(`{"name":"John"}`))
+	// output:
+	// {
+	//     "name":"John"
+	// }
+}
+
+func ExampleJsonWriter_WriteHeader() {
+	jsonWriter.WriteHeader(200)
+	// output:
+}
 
 func ExampleBodyWriter_Write() {
 	bodyWriter.Write([]byte("Hello, world!"))
@@ -38,6 +52,12 @@ func ExampleStatusWriter_Write() {
 
 func TestStatusWriter_Header(t *testing.T) {
 	if statusWriter.Header() == nil {
+		t.Fail()
+	}
+}
+
+func TestJsonWriter_Header(t *testing.T) {
+	if jsonWriter.Header() == nil {
 		t.Fail()
 	}
 }
