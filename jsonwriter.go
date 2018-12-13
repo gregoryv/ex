@@ -11,7 +11,8 @@ import (
 // JsonWriter formats incomming json and implements http.ResponseWriter.
 type JsonWriter struct {
 	header      http.Header
-	indent      int // current indent size in spaces
+	indent      int  // current indent size in spaces
+	escaped     bool // wether last character was \
 	byteHandler func(byte) string
 }
 
@@ -38,13 +39,20 @@ func (w *JsonWriter) fwrite(out io.Writer, b []byte) (int, error) {
 	return len(b), nil
 }
 
+// inside converts bytes within names or values in json
 func (w *JsonWriter) inside(b byte) string {
-	if b == '"' {
+	switch {
+	case b == '\\':
+		w.escaped = true
+	case b == '"' && !w.escaped:
 		w.byteHandler = w.outside
+	default:
+		w.escaped = false
 	}
 	return string(b)
 }
 
+// outside converts bytes that are outside of name or values in json
 func (w *JsonWriter) outside(b byte) string {
 	switch b {
 	case '"':

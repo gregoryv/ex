@@ -9,7 +9,7 @@ import (
 var jsonWriter = NewJsonWriter()
 
 func ExampleJsonWriter_Write() {
-	json := `{"name":"John","car":{"model":"x,2","plate":"abc123"}}`
+	json := `{"name":"John","car":{"model":"x,2","plate":"abc\"123"}}`
 	reader := bytes.NewBufferString(json)
 	io.Copy(jsonWriter, reader)
 	// output:
@@ -17,7 +17,7 @@ func ExampleJsonWriter_Write() {
 	//     "name":"John",
 	//     "car":{
 	//         "model":"x,2",
-	//         "plate":"abc123"
+	//         "plate":"abc\"123"
 	//     }
 	// }
 }
