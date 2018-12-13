@@ -10,7 +10,9 @@ type BodyWriter struct {
 	header http.Header
 }
 
-func NewBodyWriter() *BodyWriter          { return &BodyWriter{header: http.Header{}} }
+func NewBodyWriter() *BodyWriter {
+	return &BodyWriter{header: http.Header{}}
+}
 func (w *BodyWriter) WriteHeader(v int)   {}
 func (w *BodyWriter) Header() http.Header { return w.header }
 
@@ -25,7 +27,9 @@ type StatusWriter struct {
 	written bool
 }
 
-func NewStatusWriter() *StatusWriter { return &StatusWriter{header: http.Header{}} }
+func NewStatusWriter() *StatusWriter {
+	return &StatusWriter{header: http.Header{}}
+}
 
 // Write the given value to stdout
 func (w *StatusWriter) WriteHeader(v int) {
