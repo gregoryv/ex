@@ -1,13 +1,16 @@
 package ex
 
 import (
+	"bytes"
+	"io"
 	"testing"
 )
 
 var jsonWriter = NewJsonWriter()
 
 func ExampleJsonWriter_Write() {
-	jsonWriter.Write([]byte(`{"name":"John","car":{"model":"x,2","plate":"abc123"}}`))
+	r := bytes.NewBufferString(`{"name":"John","car":{"model":"x,2","plate":"abc123"}}`)
+	io.Copy(jsonWriter, r)
 	// output:
 	// {
 	//     "name":"John",
