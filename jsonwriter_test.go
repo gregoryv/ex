@@ -2,7 +2,9 @@ package ex
 
 import (
 	"bytes"
+	"encoding/json"
 	"io"
+	"net/http"
 	"testing"
 )
 
@@ -31,4 +33,18 @@ func TestJsonWriter_Header(t *testing.T) {
 	if jsonWriter.Header() == nil {
 		t.Fail()
 	}
+}
+
+func ExampleJsonOf() {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		json.NewEncoder(w).Encode(
+			struct {
+				Message string
+			}{"Hello, World!"})
+	}
+	handler(JsonOf(http.NewRequest("GET", "/", nil)))
+	// output:
+	// {
+	//     "Message":"Hello, World!"
+	// }
 }

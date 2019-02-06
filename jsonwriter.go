@@ -8,6 +8,13 @@ import (
 	"strings"
 )
 
+func JsonOf(r *http.Request, err error) (*JsonWriter, *http.Request) {
+	if err != nil {
+		panic(err)
+	}
+	return NewJsonWriter(), r
+}
+
 // JsonWriter formats incomming json and implements http.ResponseWriter.
 type JsonWriter struct {
 	header      http.Header
