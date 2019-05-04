@@ -4,6 +4,7 @@ package ex
 import (
 	"fmt"
 	"net/http"
+	"sort"
 	"strings"
 )
 
@@ -23,7 +24,15 @@ func (w *HeaderWriter) Write(b []byte) (int, error) {
 	if w.written {
 		return len(b), nil
 	}
-	for k, v := range w.header {
+	sorted := make([]string, len(w.header))
+	var i int
+	for k, _ := range w.header {
+		sorted[i] = k
+		i++
+	}
+	sort.Sort(sort.StringSlice(sorted))
+	for _, k := range sorted {
+		v := w.header[k]
 		if len(v) == 1 {
 			fmt.Printf("%s: %s\n", k, v[0])
 			continue

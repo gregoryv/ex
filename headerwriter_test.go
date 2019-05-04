@@ -19,9 +19,11 @@ func ExampleHeaderWriter_WriteHeader() {
 	w.Header().Add("Accept", "*")
 	w.Header().Add("Accept", "application/json")
 	w.Write([]byte("body not visible"))
+	w.Write([]byte("second write does nothing"))
 	// output:
-	// Content-Type: text/plain
 	// Accept: *; application/json
+	// Content-Type: text/plain
+
 }
 
 func TestHeaderWriter_Header(t *testing.T) {
