@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 
+- HeaderWriter prints all headers when body starts writing
+
 ## [0.1.0] - 2019-05-04
 ### Added
 
