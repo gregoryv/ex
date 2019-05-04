@@ -37,13 +37,3 @@ func ExampleHeadersOf() {
 	handler(HeadersOf(http.NewRequest("GET", "/", nil)))
 	//output:
 }
-
-func TestHeadersof_panic(t *testing.T) {
-	defer func() {
-		e := recover()
-		if e == nil {
-			t.Error("Expected a panic")
-		}
-	}()
-	HeadersOf(nil, fmt.Errorf("bad stuff"))
-}
