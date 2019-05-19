@@ -1,10 +1,11 @@
 package ex
 
 import (
-	. "github.com/gregoryv/qual"
 	"testing"
+
+	"github.com/gregoryv/qual"
 )
 
 func TestQuality(t *testing.T) {
-	Standard(t)
+	qual.Standard(t)
 }
