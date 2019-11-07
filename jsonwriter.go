@@ -17,6 +17,7 @@ func JsonOf(r *http.Request, err error) (*JsonWriter, *http.Request) {
 
 // JsonWriter formats incomming json and implements http.ResponseWriter.
 type JsonWriter struct {
+	Out         io.Writer
 	header      http.Header
 	indent      int  // current indent size in spaces
 	escaped     bool // wether last character was \
@@ -35,11 +36,20 @@ func (w *JsonWriter) Header() http.Header { return w.header }
 
 // Write the given byte slice to stdout
 func (w *JsonWriter) Write(b []byte) (int, error) {
-	return w.fwrite(os.Stdout, b)
+	if w.Out == nil {
+		for _, b := range b {
+			fmt.Fprint(os.Stdout, w.byteHandler(b))
+		}
+	} else {
+		for _, b := range b {
+			fmt.Fprint(w.Out, w.byteHandler(b))
+		}
+	}
+	return len(b), nil
 }
 
-// jwrite writes the given byte slice to out while tidying the json.
-func (w *JsonWriter) fwrite(out io.Writer, b []byte) (int, error) {
+// Write the given byte slice to stdout
+func (w *JsonWriter) WriteTo(out io.Writer, b []byte) (int, error) {
 	for _, b := range b {
 		fmt.Fprint(out, w.byteHandler(b))
 	}
