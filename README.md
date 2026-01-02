@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/gregoryv/ex.svg?branch=master)](https://travis-ci.org/gregoryv/ex)
-[![codecov](https://codecov.io/gh/gregoryv/ex/branch/master/graph/badge.svg)](https://codecov.io/gh/gregoryv/ex)
+ARCHIVED! Moved to https://sogvin.com/ex
 
 [ex](https://godoc.org/github.com/gregoryv/ex) - implements interfaces which write output to stdout
 
